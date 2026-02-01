@@ -1,0 +1,39 @@
+[workspace]
+authors = ["ehsanmok <ehsanmok@users.noreply.github.com>"]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge", "https://prefix.dev/modular-community"]
+name = "pprint"
+platforms = ["linux-64", "osx-arm64"]
+version = "0.0.1"
+preview = ["pixi-build"]
+
+[package]
+name = "pprint"
+version = "0.0.1"
+
+[package.build]
+backend = { name = "pixi-build-rattler-build", version = "*" }
+
+[dependencies]
+pprint = { path = "." }
+mojo = "<1.0"
+
+[feature.dev.dependencies]
+pre-commit = ">=4.2.0,<5"
+
+[environments]
+default = { features = ["dev"], solve-group = "default" }
+
+[tasks]
+# Format
+install-pre-commit = "pre-commit install"
+format = { cmd = "mojo format pprint tests examples", depends-on = ["install-pre-commit"] }
+
+# Tests
+tests = "mojo -I . tests/test_scalars.mojo && mojo -I . tests/test_structs.mojo && mojo -I . tests/test_config.mojo && mojo -I . tests/test_edge_cases.mojo"
+test-scalars = "mojo -I . tests/test_scalars.mojo"
+test-structs = "mojo -I . tests/test_structs.mojo"
+test-config = "mojo -I . tests/test_config.mojo"
+test-edge-cases = "mojo -I . tests/test_edge_cases.mojo"
+
+# Example
+example = "mojo -I . examples/example.mojo"

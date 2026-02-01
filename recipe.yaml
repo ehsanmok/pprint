@@ -1,0 +1,21 @@
+package:
+  name: pprint
+  version: "0.0.1"
+
+source:
+  path: .
+
+build:
+  script:
+    - mkdir -p $PREFIX/lib/mojo
+    - cp -r pprint $PREFIX/lib/mojo/
+
+requirements:
+  host:
+    - mojo <1.0
+  run:
+    - mojo <1.0
+
+about:
+  summary: Reflection-driven pretty printer for Mojo structs
+  license: MIT
