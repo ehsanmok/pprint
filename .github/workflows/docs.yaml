@@ -36,7 +36,7 @@ jobs:
         run: pixi run tests
 
       - name: Generate docs with mojodoc
-        run: pixi run mojodoc ./pprint --out-dir target/doc
+        run: pixi run mojodoc ./pprint --out-dir target/doc --base-url /pprint/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -19,7 +19,7 @@ mojo = "<1.0"
 
 [feature.dev.dependencies]
 pre-commit = ">=4.2.0,<5"
-mojodoc = { git = "https://github.com/ehsanmok/mojodoc.git" }
+mojodoc = { git = "https://github.com/ehsanmok/mojodoc.git", branch = "main" }
 
 [environments]
 default = { features = ["dev"], solve-group = "default" }
@@ -41,4 +41,4 @@ example = "mojo -I . examples/example.mojo"
 
 # Docs
 docs = "mojodoc ./pprint --open"
-docs-build = "mojodoc ./pprint --out-dir target/doc"
+docs-build = "mojodoc ./pprint --out-dir target/doc --base-url /pprint/"
