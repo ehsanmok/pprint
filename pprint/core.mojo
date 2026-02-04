@@ -22,18 +22,18 @@ struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
     Create an instance with custom settings and pass it to `pprint()` or `pformat()`.
 
     Example:
-        ```mojo
-        # Default settings
-        pprint(my_struct)
+    ```mojo
+    # Default settings
+    pprint(my_struct)
 
-        # Custom indentation and type annotations
-        var pp = PrettyPrinter(indent=4, show_types=True)
-        pprint(my_struct, pp)
+    # Custom indentation and type annotations
+    var pp = PrettyPrinter(indent=4, show_types=True)
+    pprint(my_struct, pp)
 
-        # Limit depth for deeply nested structures
-        var pp = PrettyPrinter(max_depth=2)
-        pprint(deeply_nested, pp)
-        ```
+    # Limit depth for deeply nested structures
+    var pp = PrettyPrinter(max_depth=2)
+    pprint(deeply_nested, pp)
+    ```
     """
 
     var indent: Int
@@ -108,28 +108,28 @@ fn pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
         pp: Optional PrettyPrinter configuration. Uses defaults if not provided.
 
     Example:
-        ```mojo
-        struct Point:
-            var x: Int
-            var y: Int
+    ```mojo
+    struct Point:
+        var x: Int
+        var y: Int
 
-        fn main():
-            var p = Point(10, 20)
-            pprint(p)
-            # Output:
-            # {
-            #   x: 10,
-            #   y: 20
-            # }
+    fn main():
+        var p = Point(10, 20)
+        pprint(p)
+        # Output:
+        # {
+        #   x: 10,
+        #   y: 20
+        # }
 
-            # With type annotations
-            pprint(p, PrettyPrinter(show_types=True))
-            # Output:
-            # {
-            #   x: 10 <Int>,
-            #   y: 20 <Int>
-            # }
-        ```
+        # With type annotations
+        pprint(p, PrettyPrinter(show_types=True))
+        # Output:
+        # {
+        #   x: 10 <Int>,
+        #   y: 20 <Int>
+        # }
+    ```
     """
     print(pformat(value, pp))
 
@@ -151,27 +151,27 @@ fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
         A formatted string representation of the value.
 
     Example:
-        ```mojo
-        struct Config:
-            var name: String
-            var enabled: Bool
+    ```mojo
+    struct Config:
+        var name: String
+        var enabled: Bool
 
-        fn main():
-            var cfg = Config("debug", True)
-            var s = pformat(cfg)
-            print("Config: " + s)
+    fn main():
+        var cfg = Config("debug", True)
+        var s = pformat(cfg)
+        print("Config: " + s)
 
-            # Store or log the formatted output
-            var log_entry = "Loaded: " + pformat(cfg, PrettyPrinter(indent=0))
-        ```
+        # Store or log the formatted output
+        var log_entry = "Loaded: " + pformat(cfg, PrettyPrinter(indent=0))
+    ```
 
     Supported types:
-        - String: Quoted with double quotes ("value")
-        - Int: Numeric representation
-        - Bool: Lowercase true/false (JSON-style)
-        - Float64, Float32, Float16: Decimal representation
-        - Structs: Recursive formatting with braces and indentation
-        - Unknown types: Displayed as "<unknown>"
+    - String: Quoted with double quotes ("value")
+    - Int: Numeric representation
+    - Bool: Lowercase true/false (JSON-style)
+    - Float64, Float32, Float16: Decimal representation
+    - Structs: Recursive formatting with braces and indentation
+    - Unknown types: Displayed as "<unknown>"
     """
     comptime tname = get_type_name[T]()
 
