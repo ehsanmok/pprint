@@ -6,3 +6,5 @@
 .cursor
 
 *.lock
+target/
+*.mojopkg

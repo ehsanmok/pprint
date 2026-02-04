@@ -266,7 +266,7 @@ def test_max_items_0():
 # =============================================================================
 
 def test_show_types_false():
-    """show_types=False hides types."""
+    """Verify show_types=False hides types."""
     var pp = PrettyPrinter(show_types=False)
     var s = SingleField(42)
     var out = pformat(s, pp)
@@ -274,7 +274,7 @@ def test_show_types_false():
 
 
 def test_show_types_true():
-    """show_types=True shows types."""
+    """Verify show_types=True shows types."""
     var pp = PrettyPrinter(show_types=True)
     var s = SingleField(42)
     var out = pformat(s, pp)
@@ -282,7 +282,7 @@ def test_show_types_true():
 
 
 def test_show_types_multiple_fields():
-    """show_types on multiple fields."""
+    """Verify show_types on multiple fields."""
     var pp = PrettyPrinter(show_types=True)
     var a = Address("NYC", 10001)
     var out = pformat(a, pp)
@@ -291,7 +291,7 @@ def test_show_types_multiple_fields():
 
 
 def test_show_types_nested():
-    """show_types on nested structs."""
+    """Verify show_types on nested structs."""
     var pp = PrettyPrinter(show_types=True)
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n, pp)

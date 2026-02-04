@@ -206,7 +206,7 @@ def test_type_annotation_after_value():
 # =============================================================================
 
 def test_pprint_returns_none():
-    """pprint function returns None (just prints)."""
+    """Verify pprint function works (just prints to stdout)."""
     # This test verifies pprint works without error
     # We can't easily capture stdout, so just verify no crash
     pprint(42)
@@ -215,7 +215,7 @@ def test_pprint_returns_none():
 
 
 def test_pprint_with_config():
-    """pprint with PrettyPrinter config."""
+    """Verify pprint works with PrettyPrinter config."""
     var pp = PrettyPrinter(indent=4, show_types=True)
     pprint(SingleField(42), pp)  # Should not crash
 

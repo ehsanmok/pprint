@@ -1,10 +1,9 @@
-"""Pretty printer for Mojo structs using reflection.
+"""Core implementation of the pretty printer.
 
-Uses the moclap workaround: StringLiteral.format() accepts Formattable args
-while print() requires Writable. This allows formatting reflected field values.
-
-Known scalar types are detected by comparing type names to avoid recursing
-into MLIR primitive types.
+This module contains the main formatting logic using compile-time reflection
+to introspect struct fields. Known scalar types (Int, Bool, String, Float*)
+are detected by comparing type names at compile time to avoid recursing into
+MLIR primitive types.
 """
 
 from reflection import (
@@ -17,13 +16,36 @@ from reflection import (
 
 
 struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
-    """Configuration for pretty printing (like Python's pprint.PrettyPrinter)."""
+    """Configuration for pretty printing, similar to Python's pprint.PrettyPrinter.
+
+    This struct holds formatting options that control how values are displayed.
+    Create an instance with custom settings and pass it to `pprint()` or `pformat()`.
+
+    Example:
+        ```mojo
+        # Default settings
+        pprint(my_struct)
+
+        # Custom indentation and type annotations
+        var pp = PrettyPrinter(indent=4, show_types=True)
+        pprint(my_struct, pp)
+
+        # Limit depth for deeply nested structures
+        var pp = PrettyPrinter(max_depth=2)
+        pprint(deeply_nested, pp)
+        ```
+    """
 
     var indent: Int
+    """Number of spaces per indentation level."""
     var max_depth: Int
+    """Maximum nesting depth before truncating with '...'."""
     var max_items: Int
+    """Maximum number of fields to display per struct."""
     var show_types: Bool
+    """Whether to append type annotations (e.g., '<Int>') after values."""
     var compact: Bool
+    """Reserved for future compact/single-line output mode."""
 
     fn __init__(
         out self,
@@ -33,6 +55,15 @@ struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
         show_types: Bool = False,
         compact: Bool = False,
     ):
+        """Initialize a PrettyPrinter with the given configuration.
+
+        Args:
+            indent: Number of spaces per indentation level. Default: 2.
+            max_depth: Maximum nesting depth before showing "...". Default: 6.
+            max_items: Maximum fields to show per struct. Default: 64.
+            show_types: Append type annotations like "<Int>". Default: False.
+            compact: Reserved for future use. Default: False.
+        """
         self.indent = indent
         self.max_depth = max_depth
         self.max_items = max_items
@@ -64,12 +95,84 @@ comptime _FLOAT16_NAME = get_type_name[Float16]()
 
 
 fn pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
-    """Pretty-print any value to stdout."""
+    """Pretty-print any value to stdout.
+
+    Formats the value using reflection and prints it with proper indentation.
+    This is the main entry point for quick debugging output.
+
+    Parameters:
+        T: The type of the value to print (inferred automatically).
+
+    Args:
+        value: The value to pretty-print. Can be a scalar or struct.
+        pp: Optional PrettyPrinter configuration. Uses defaults if not provided.
+
+    Example:
+        ```mojo
+        struct Point:
+            var x: Int
+            var y: Int
+
+        fn main():
+            var p = Point(10, 20)
+            pprint(p)
+            # Output:
+            # {
+            #   x: 10,
+            #   y: 20
+            # }
+
+            # With type annotations
+            pprint(p, PrettyPrinter(show_types=True))
+            # Output:
+            # {
+            #   x: 10 <Int>,
+            #   y: 20 <Int>
+            # }
+        ```
+    """
     print(pformat(value, pp))
 
 
 fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
-    """Format any value as a pretty string."""
+    """Format any value as a pretty-printed string.
+
+    Returns a formatted string representation of the value. Use this when you
+    need the formatted output as a string rather than printing directly.
+
+    Parameters:
+        T: The type of the value to format (inferred automatically).
+
+    Args:
+        value: The value to format. Can be a scalar or struct.
+        pp: Optional PrettyPrinter configuration. Uses defaults if not provided.
+
+    Returns:
+        A formatted string representation of the value.
+
+    Example:
+        ```mojo
+        struct Config:
+            var name: String
+            var enabled: Bool
+
+        fn main():
+            var cfg = Config("debug", True)
+            var s = pformat(cfg)
+            print("Config: " + s)
+
+            # Store or log the formatted output
+            var log_entry = "Loaded: " + pformat(cfg, PrettyPrinter(indent=0))
+        ```
+
+    Supported types:
+        - String: Quoted with double quotes ("value")
+        - Int: Numeric representation
+        - Bool: Lowercase true/false (JSON-style)
+        - Float64, Float32, Float16: Decimal representation
+        - Structs: Recursive formatting with braces and indentation
+        - Unknown types: Displayed as "<unknown>"
+    """
     comptime tname = get_type_name[T]()
 
     # Check known scalar types at compile time

@@ -19,6 +19,7 @@ mojo = "<1.0"
 
 [feature.dev.dependencies]
 pre-commit = ">=4.2.0,<5"
+mojodoc = { git = "https://github.com/ehsanmok/mojodoc.git" }
 
 [environments]
 default = { features = ["dev"], solve-group = "default" }
