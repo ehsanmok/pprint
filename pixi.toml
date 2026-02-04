@@ -1,6 +1,6 @@
 [workspace]
 authors = ["ehsanmok <ehsanmok@users.noreply.github.com>"]
-channels = ["https://conda.modular.com/max-nightly", "conda-forge", "https://prefix.dev/modular-community"]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 name = "pprint"
 platforms = ["linux-64", "osx-arm64"]
 version = "0.0.1"
@@ -38,3 +38,7 @@ test-edge-cases = "mojo -I . tests/test_edge_cases.mojo"
 
 # Example
 example = "mojo -I . examples/example.mojo"
+
+# Docs
+docs = "mojodoc ./pprint --open"
+docs-build = "mojodoc ./pprint --out-dir target/doc"
