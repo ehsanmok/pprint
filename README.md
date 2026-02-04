@@ -1,5 +1,8 @@
 # pprint
 
+[![Docs](https://github.com/ehsanmok/pprint/actions/workflows/docs.yaml/badge.svg)](https://github.com/ehsanmok/pprint/actions/workflows/docs.yaml)
+[![API Docs](https://img.shields.io/badge/docs-API-blue)](https://ehsanmok.github.io/pprint/pprint/)
+
 Reflection-driven pretty printer for Mojo structs.
 
 ## Why pprint?
@@ -123,9 +126,11 @@ pixi run tests
 ### Tasks
 
 ```bash
-pixi run tests
-pixi run example
-pixi run format
+pixi run tests       # Run test suite
+pixi run example     # Run example
+pixi run format      # Format code
+pixi run docs        # Generate docs and open in browser
+pixi run docs-build  # Generate docs to target/doc/
 ```
 
 ## License
