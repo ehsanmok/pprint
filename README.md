@@ -136,3 +136,4 @@ pixi run docs-build  # Generate docs to target/doc/
 ## License
 
 [MIT](./LICENSE)
+
