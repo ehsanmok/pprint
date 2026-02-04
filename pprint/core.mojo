@@ -75,12 +75,12 @@ fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
     # Check known scalar types at compile time
     @parameter
     if tname == _STRING_NAME:
-        var out = "\"{}\"".format(value)
+        var out = '"' + rebind[String](value) + '"'
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
     elif tname == _INT_NAME:
-        var out = "{}".format(value)
+        var out = String(rebind[Int](value))
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
@@ -91,25 +91,25 @@ fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
             out += " <" + String(tname) + ">"
         return out
     elif tname == _FLOAT64_NAME or "SIMD[DType.float64" in tname:
-        var out = "{}".format(value)
+        var out = String(rebind[Float64](value))
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
     elif tname == _FLOAT32_NAME or "SIMD[DType.float32" in tname:
-        var out = "{}".format(value)
+        var out = String(rebind[Float32](value))
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
     elif tname == _FLOAT16_NAME or "SIMD[DType.float16" in tname:
-        var out = "{}".format(value)
+        var out = String(rebind[Float16](value))
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
     elif is_struct_type[T]():
         return _format_struct[T](value, pp, 0)
     else:
-        # Unknown type - try to format as scalar
-        var out = "{}".format(value)
+        # Unknown type - cannot format without Writable trait
+        var out = String("<unknown>")
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
@@ -154,26 +154,26 @@ fn _format_struct[T: AnyType](
         # Format based on known scalar types (compile-time checks)
         @parameter
         if field_type_name == _STRING_NAME:
-            out += "\"{}\"".format(field)
+            out += '"' + rebind[String](field) + '"'
         elif field_type_name == _INT_NAME:
-            out += "{}".format(field)
+            out += String(rebind[Int](field))
         elif field_type_name == _BOOL_NAME:
             # Format bool as lowercase true/false (JSON-style)
             out += "true" if rebind[Bool](field) else "false"
         elif field_type_name == _FLOAT64_NAME or "SIMD[DType.float64" in field_type_name:
-            out += "{}".format(field)
+            out += String(rebind[Float64](field))
         elif field_type_name == _FLOAT32_NAME or "SIMD[DType.float32" in field_type_name:
-            out += "{}".format(field)
+            out += String(rebind[Float32](field))
         elif field_type_name == _FLOAT16_NAME or "SIMD[DType.float16" in field_type_name:
-            out += "{}".format(field)
+            out += String(rebind[Float16](field))
         elif is_struct_type[field_type]():
             # Nested struct: recurse
             out += _format_struct[field_type](
                 rebind[field_type](field), pp, depth + 1
             )
         else:
-            # Unknown type - try to format
-            out += "{}".format(field)
+            # Unknown type - cannot format without Writable trait
+            out += "<unknown>"
 
         # Add type annotation if requested
         if pp.show_types:
