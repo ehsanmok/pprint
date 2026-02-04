@@ -28,7 +28,7 @@ jobs:
       - name: Setup Pixi
         uses: prefix-dev/setup-pixi@v0.8.1
         with:
-          pixi-version: v0.41.4
+          pixi-version: v0.63.2
           cache: false
           post-cleanup: false
 
@@ -36,7 +36,7 @@ jobs:
         run: pixi run tests
 
       - name: Generate docs with mojodoc
-        run: pixi run -e ci mojodoc ./pprint --out-dir target/doc
+        run: pixi run mojodoc ./pprint --out-dir target/doc
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
