@@ -1,6 +1,6 @@
 # pprint
 
-[![Docs](https://github.com/ehsanmok/pprint/actions/workflows/docs.yaml/badge.svg)](https://github.com/ehsanmok/pprint/actions/workflows/docs.yaml)
+[![CI](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml/badge.svg)](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml)
 [![API Docs](https://img.shields.io/badge/docs-API-blue)](https://ehsanmok.github.io/pprint/pprint/)
 
 Reflection-driven pretty printer for Mojo structs.
