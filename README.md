@@ -30,6 +30,10 @@ fn main():
     pprint(p)  # Works! No Writable needed
 ```
 
+## Requirements
+
+[pixi](https://pixi.sh) package manager
+
 ## Installation
 
 Add pprint to your project's `pixi.toml`:
@@ -136,4 +140,3 @@ pixi run docs-build  # Generate docs to target/doc/
 ## License
 
 [MIT](./LICENSE)
-
