@@ -70,19 +70,19 @@ struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
         self.show_types = show_types
         self.compact = compact
 
-    fn __copyinit__(out self, existing: Self):
-        self.indent = existing.indent
-        self.max_depth = existing.max_depth
-        self.max_items = existing.max_items
-        self.show_types = existing.show_types
-        self.compact = existing.compact
+    fn __copyinit__(out self, copy: Self):
+        self.indent = copy.indent
+        self.max_depth = copy.max_depth
+        self.max_items = copy.max_items
+        self.show_types = copy.show_types
+        self.compact = copy.compact
 
-    fn __moveinit__(out self, deinit existing: Self):
-        self.indent = existing.indent
-        self.max_depth = existing.max_depth
-        self.max_items = existing.max_items
-        self.show_types = existing.show_types
-        self.compact = existing.compact
+    fn __moveinit__(out self, deinit take: Self):
+        self.indent = take.indent
+        self.max_depth = take.max_depth
+        self.max_items = take.max_items
+        self.show_types = take.show_types
+        self.compact = take.compact
 
 
 # Known scalar type names (to avoid recursing into MLIR primitives)
