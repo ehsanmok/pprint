@@ -159,7 +159,7 @@ def test_nested_braces():
     # Count braces
     var open_count = 0
     var close_count = 0
-    for c in out:
+    for c in out.codepoint_slices():
         if c == "{":
             open_count += 1
         elif c == "}":
