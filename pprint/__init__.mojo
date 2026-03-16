@@ -15,7 +15,7 @@ struct Person(Copyable, Movable):
     var name: String
     var age: Int
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     print(p)  # ERROR: 'Person' does not implement 'Writable'
 ```
@@ -26,7 +26,7 @@ inspect and format any struct automatically:
 ```mojo
 from pprint import pprint
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     pprint(p)  # Works! No Writable needed
 ```
@@ -64,7 +64,7 @@ struct Person(Copyable, Movable):
     var name: String
     var age: Int
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     pprint(p)
 ```
@@ -183,7 +183,7 @@ struct Person(Copyable, Movable):
     var score: Float64
     var address: Address
 
-fn main():
+def main():
     var p = Person("Ada", 36, True, 95.5, Address("London", 12345))
     pprint(p)
 ```
@@ -280,10 +280,10 @@ pprint(large_struct, PrettyPrinter(max_items=3))
 ```mojo
 from pprint import pformat
 
-fn log_state[T: AnyType](label: String, value: T):
+def log_state[T: AnyType](label: String, value: T):
     print("[LOG] " + label + ": " + pformat(value))
 
-fn main():
+def main():
     var config = AppConfig(...)
     log_state("startup config", config)
 ```

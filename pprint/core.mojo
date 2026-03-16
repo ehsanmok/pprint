@@ -94,7 +94,7 @@ comptime _FLOAT32_NAME = get_type_name[Float32]()
 comptime _FLOAT16_NAME = get_type_name[Float16]()
 
 
-fn pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
+def pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
     """Pretty-print any value to stdout.
 
     Formats the value using reflection and prints it with proper indentation.
@@ -113,7 +113,7 @@ fn pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
         var x: Int
         var y: Int
 
-    fn main():
+    def main():
         var p = Point(10, 20)
         pprint(p)
         # Output:
@@ -134,7 +134,7 @@ fn pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
     print(pformat(value, pp))
 
 
-fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
+def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
     """Format any value as a pretty-printed string.
 
     Returns a formatted string representation of the value. Use this when you
@@ -156,7 +156,7 @@ fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
         var name: String
         var enabled: Bool
 
-    fn main():
+    def main():
         var cfg = Config("debug", True)
         var s = pformat(cfg)
         print("Config: " + s)
@@ -218,7 +218,7 @@ fn pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String:
         return out
 
 
-fn _format_struct[T: AnyType](
+def _format_struct[T: AnyType](
     value: T, pp: PrettyPrinter, depth: Int
 ) -> String:
     """Format a struct using reflection."""
@@ -292,7 +292,7 @@ fn _format_struct[T: AnyType](
     return out
 
 
-fn _format_type_name(name: StaticString) -> String:
+def _format_type_name(name: StaticString) -> String:
     """Format a type name for display, handling SIMD and module prefixes."""
     var type_str = String(name)
 
@@ -305,14 +305,13 @@ fn _format_type_name(name: StaticString) -> String:
         return "Float16"
 
     # Strip module prefix if present (e.g., "module.StructName" -> "StructName")
-    var dot_idx = type_str.rfind(".")
-    if dot_idx >= 0:
-        return String(type_str[dot_idx + 1:])
+    if "." in type_str:
+        return String(type_str.split(".")[-1])
 
     return type_str
 
 
-fn _indent(spaces: Int, depth: Int) -> String:
+def _indent(spaces: Int, depth: Int) -> String:
     """Create indentation string."""
     if spaces <= 0:
         return ""

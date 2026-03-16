@@ -19,12 +19,12 @@ from tests.fixtures import (
 # Empty struct tests
 # =============================================================================
 
-def test_empty_struct():
+def test_empty_struct() raises:
     """Empty struct prints as {}."""
     assert_equal(pformat(Empty()), "{}")
 
 
-def test_empty_struct_with_types():
+def test_empty_struct_with_types() raises:
     """Empty struct with show_types still prints {}."""
     var pp = PrettyPrinter(show_types=True)
     assert_equal(pformat(Empty(), pp), "{}")
@@ -34,21 +34,21 @@ def test_empty_struct_with_types():
 # Single field struct tests
 # =============================================================================
 
-def test_single_field():
+def test_single_field() raises:
     """Single field struct."""
     var s = SingleField(42)
     var expected = "{\n  value: 42\n}"
     assert_equal(pformat(s), expected)
 
 
-def test_single_field_zero():
+def test_single_field_zero() raises:
     """Single field with zero value."""
     var s = SingleField(0)
     var expected = "{\n  value: 0\n}"
     assert_equal(pformat(s), expected)
 
 
-def test_single_field_negative():
+def test_single_field_negative() raises:
     """Single field with negative value."""
     var s = SingleField(-10)
     var expected = "{\n  value: -10\n}"
@@ -59,7 +59,7 @@ def test_single_field_negative():
 # Two field struct tests
 # =============================================================================
 
-def test_two_fields():
+def test_two_fields() raises:
     """Two field struct."""
     var s = TwoFields(1, 2)
     var out = pformat(s)
@@ -68,14 +68,14 @@ def test_two_fields():
     assert_true(",\n" in out)  # Comma between fields
 
 
-def test_address():
+def test_address() raises:
     """Address struct with string and int."""
     var a = Address("Paris", 75001)
     var expected = "{\n  city: \"Paris\",\n  zip: 75001\n}"
     assert_equal(pformat(a), expected)
 
 
-def test_address_empty_city():
+def test_address_empty_city() raises:
     """Address with empty city string."""
     var a = Address("", 12345)
     var out = pformat(a)
@@ -87,7 +87,7 @@ def test_address_empty_city():
 # Multi-field struct tests
 # =============================================================================
 
-def test_person():
+def test_person() raises:
     """Person struct with various field types."""
     var p = Person(
         "Ada",
@@ -105,7 +105,7 @@ def test_person():
     assert_true("zip: 12345" in out)
 
 
-def test_person_inactive():
+def test_person_inactive() raises:
     """Person with false boolean."""
     var p = Person(
         "Bob",
@@ -118,7 +118,7 @@ def test_person_inactive():
     assert_true("active: false" in out)
 
 
-def test_all_types():
+def test_all_types() raises:
     """Struct with all supported scalar types."""
     var a = AllTypes(42, True, "hello", 3.14)
     var out = pformat(a)
@@ -132,7 +132,7 @@ def test_all_types():
 # Nested struct tests
 # =============================================================================
 
-def test_nested_basic():
+def test_nested_basic() raises:
     """Basic nested struct."""
     var n = Level1(Level2(Level3(42)))
     var out = pformat(n)
@@ -140,7 +140,7 @@ def test_nested_basic():
     assert_true("value: 42" in out)
 
 
-def test_nested_indentation():
+def test_nested_indentation() raises:
     """Nested structs have proper indentation."""
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n)
@@ -152,7 +152,7 @@ def test_nested_indentation():
     assert_true("      value: 1" in out)
 
 
-def test_nested_braces():
+def test_nested_braces() raises:
     """Nested structs have matching braces."""
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n)
@@ -172,7 +172,7 @@ def test_nested_braces():
 # Struct with show_types
 # =============================================================================
 
-def test_show_types_simple():
+def test_show_types_simple() raises:
     """Type hints on simple struct."""
     var pp = PrettyPrinter(show_types=True)
     var a = Address("NYC", 10001)
@@ -181,7 +181,7 @@ def test_show_types_simple():
     assert_true("<Int>" in out)
 
 
-def test_show_types_nested():
+def test_show_types_nested() raises:
     """Type hints for nested struct."""
     var pp = PrettyPrinter(show_types=True)
     var n = Level1(Level2(Level3(1)))
@@ -191,7 +191,7 @@ def test_show_types_nested():
     assert_true("<Int>" in out)
 
 
-def test_show_types_all_types():
+def test_show_types_all_types() raises:
     """Type hints for all scalar types."""
     var pp = PrettyPrinter(show_types=True)
     var a = AllTypes(42, True, "hi", 1.5)
@@ -205,7 +205,7 @@ def test_show_types_all_types():
 # Main
 # =============================================================================
 
-def main():
+def main() raises:
     print("=" * 60)
     print("test_structs.mojo")
     print("=" * 60)

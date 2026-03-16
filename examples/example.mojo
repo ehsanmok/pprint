@@ -16,7 +16,7 @@ struct Person(Copyable, Movable):
     var address: Address
 
 
-fn main():
+def main() raises:
     # Basic usage
     print("=== Basic struct ===")
     var p = Person(

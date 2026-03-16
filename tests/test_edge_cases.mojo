@@ -16,26 +16,26 @@ from tests.fixtures import (
 # Special string content
 # =============================================================================
 
-def test_string_with_quotes():
+def test_string_with_quotes() raises:
     """String containing quotes."""
     var out = pformat("say \"hello\"")
     assert_true("say" in out)
 
 
-def test_string_with_backslash():
+def test_string_with_backslash() raises:
     """String containing backslash."""
     var out = pformat("path\\to\\file")
     assert_true("path" in out)
 
 
-def test_string_long():
+def test_string_long() raises:
     """Long string."""
     var long_str = "a" * 1000
     var out = pformat(long_str)
     assert_true("aaa" in out)
 
 
-def test_string_only_spaces():
+def test_string_only_spaces() raises:
     """String with only spaces."""
     assert_equal(pformat("   "), '"   "')
 
@@ -44,26 +44,26 @@ def test_string_only_spaces():
 # Numeric edge cases
 # =============================================================================
 
-def test_int_boundary_positive():
+def test_int_boundary_positive() raises:
     """Large positive integer."""
     var out = pformat(2147483647)
     assert_true("2147483647" in out)
 
 
-def test_int_boundary_negative():
+def test_int_boundary_negative() raises:
     """Large negative integer."""
     var out = pformat(-2147483648)
     assert_true("-2147483648" in out)
 
 
-def test_float_very_small():
+def test_float_very_small() raises:
     """Very small float."""
     var out = pformat(0.0000001)
     # May be in scientific notation
     assert_true("1" in out or "e" in out)
 
 
-def test_float_very_large():
+def test_float_very_large() raises:
     """Very large float."""
     var out = pformat(1e100)
     assert_true("1" in out)
@@ -73,14 +73,14 @@ def test_float_very_large():
 # Empty and minimal structs
 # =============================================================================
 
-def test_empty_struct_multiple():
+def test_empty_struct_multiple() raises:
     """Multiple empty struct instances."""
     var e1 = Empty()
     var e2 = Empty()
     assert_equal(pformat(e1), pformat(e2))
 
 
-def test_single_field_various_values():
+def test_single_field_various_values() raises:
     """Single field with various values."""
     assert_true("0" in pformat(SingleField(0)))
     assert_true("-1" in pformat(SingleField(-1)))
@@ -91,14 +91,14 @@ def test_single_field_various_values():
 # Deeply nested structs
 # =============================================================================
 
-def test_deep_nesting_default_depth():
+def test_deep_nesting_default_depth() raises:
     """3-level nesting within default depth limit."""
     var n = Level1(Level2(Level3(42)))
     var out = pformat(n)
     assert_true("value: 42" in out)
 
 
-def test_deep_nesting_exact_depth():
+def test_deep_nesting_exact_depth() raises:
     """Nesting exactly at depth limit."""
     var pp = PrettyPrinter(max_depth=3)
     var n = Level1(Level2(Level3(42)))
@@ -106,7 +106,7 @@ def test_deep_nesting_exact_depth():
     assert_true("value: 42" in out)
 
 
-def test_deep_nesting_one_below_depth():
+def test_deep_nesting_one_below_depth() raises:
     """Nesting one level below depth limit."""
     var pp = PrettyPrinter(max_depth=2)
     var n = Level1(Level2(Level3(42)))
@@ -119,35 +119,35 @@ def test_deep_nesting_one_below_depth():
 # Output format verification
 # =============================================================================
 
-def test_output_starts_with_brace():
+def test_output_starts_with_brace() raises:
     """Struct output starts with {."""
     var s = SingleField(1)
     var out = pformat(s)
     assert_true(out.startswith("{"))
 
 
-def test_output_ends_with_brace():
+def test_output_ends_with_brace() raises:
     """Struct output ends with }."""
     var s = SingleField(1)
     var out = pformat(s)
     assert_true(out.endswith("}"))
 
 
-def test_output_has_newlines():
+def test_output_has_newlines() raises:
     """Struct output contains newlines."""
     var s = SingleField(1)
     var out = pformat(s)
     assert_true("\n" in out)
 
 
-def test_output_field_colon():
+def test_output_field_colon() raises:
     """Fields have colon after name."""
     var s = SingleField(1)
     var out = pformat(s)
     assert_true("value:" in out)
 
 
-def test_output_comma_between_fields():
+def test_output_comma_between_fields() raises:
     """Multiple fields separated by comma."""
     var a = Address("NYC", 10001)
     var out = pformat(a)
@@ -158,14 +158,14 @@ def test_output_comma_between_fields():
 # Consistency tests
 # =============================================================================
 
-def test_same_input_same_output():
+def test_same_input_same_output() raises:
     """Same input produces same output."""
     var a1 = Address("NYC", 10001)
     var a2 = Address("NYC", 10001)
     assert_equal(pformat(a1), pformat(a2))
 
 
-def test_different_config_different_output():
+def test_different_config_different_output() raises:
     """Different config produces different output."""
     var s = SingleField(1)
     var out1 = pformat(s, PrettyPrinter(indent=2))
@@ -173,7 +173,7 @@ def test_different_config_different_output():
     assert_true(out1 != out2)
 
 
-def test_scalar_no_braces():
+def test_scalar_no_braces() raises:
     """Scalar output has no braces."""
     var out = pformat(42)
     assert_false("{" in out)
@@ -184,7 +184,7 @@ def test_scalar_no_braces():
 # Type annotation format
 # =============================================================================
 
-def test_type_annotation_format():
+def test_type_annotation_format() raises:
     """Type annotation uses angle brackets."""
     var pp = PrettyPrinter(show_types=True)
     var out = pformat(42, pp)
@@ -192,7 +192,7 @@ def test_type_annotation_format():
     assert_true(">" in out)
 
 
-def test_type_annotation_after_value():
+def test_type_annotation_after_value() raises:
     """Type annotation comes after value."""
     var pp = PrettyPrinter(show_types=True)
     var out = pformat(42, pp)
@@ -205,7 +205,7 @@ def test_type_annotation_after_value():
 # pprint function tests
 # =============================================================================
 
-def test_pprint_returns_none():
+def test_pprint_returns_none() raises:
     """Verify pprint function works (just prints to stdout)."""
     # This test verifies pprint works without error
     # We can't easily capture stdout, so just verify no crash
@@ -214,7 +214,7 @@ def test_pprint_returns_none():
     pprint(Address("NYC", 10001))
 
 
-def test_pprint_with_config():
+def test_pprint_with_config() raises:
     """Verify pprint works with PrettyPrinter config."""
     var pp = PrettyPrinter(indent=4, show_types=True)
     pprint(SingleField(42), pp)  # Should not crash
@@ -224,7 +224,7 @@ def test_pprint_with_config():
 # Main
 # =============================================================================
 
-def main():
+def main() raises:
     print("=" * 60)
     print("test_edge_cases.mojo")
     print("=" * 60)

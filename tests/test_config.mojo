@@ -21,31 +21,31 @@ from tests.fixtures import (
 # Default values tests
 # =============================================================================
 
-def test_default_indent():
+def test_default_indent() raises:
     """Default indent is 2."""
     var pp = PrettyPrinter()
     assert_equal(pp.indent, 2)
 
 
-def test_default_max_depth():
+def test_default_max_depth() raises:
     """Default max_depth is 6."""
     var pp = PrettyPrinter()
     assert_equal(pp.max_depth, 6)
 
 
-def test_default_max_items():
+def test_default_max_items() raises:
     """Default max_items is 64."""
     var pp = PrettyPrinter()
     assert_equal(pp.max_items, 64)
 
 
-def test_default_show_types():
+def test_default_show_types() raises:
     """Default show_types is False."""
     var pp = PrettyPrinter()
     assert_false(pp.show_types)
 
 
-def test_default_compact():
+def test_default_compact() raises:
     """Default compact is False."""
     var pp = PrettyPrinter()
     assert_false(pp.compact)
@@ -55,7 +55,7 @@ def test_default_compact():
 # Custom indent tests
 # =============================================================================
 
-def test_indent_0():
+def test_indent_0() raises:
     """Zero indent - no indentation."""
     var pp = PrettyPrinter(indent=0)
     var s = SingleField(1)
@@ -64,7 +64,7 @@ def test_indent_0():
     assert_false("  value" in out)
 
 
-def test_indent_1():
+def test_indent_1() raises:
     """Single space indent."""
     var pp = PrettyPrinter(indent=1)
     var s = SingleField(1)
@@ -73,7 +73,7 @@ def test_indent_1():
     assert_false("  value" in out)
 
 
-def test_indent_2():
+def test_indent_2() raises:
     """Default 2-space indent."""
     var pp = PrettyPrinter(indent=2)
     var s = SingleField(1)
@@ -81,7 +81,7 @@ def test_indent_2():
     assert_true("  value: 1" in out)
 
 
-def test_indent_4():
+def test_indent_4() raises:
     """4-space indent."""
     var pp = PrettyPrinter(indent=4)
     var s = SingleField(1)
@@ -89,7 +89,7 @@ def test_indent_4():
     assert_true("    value: 1" in out)
 
 
-def test_indent_8():
+def test_indent_8() raises:
     """8-space indent."""
     var pp = PrettyPrinter(indent=8)
     var s = SingleField(1)
@@ -97,7 +97,7 @@ def test_indent_8():
     assert_true("        value: 1" in out)
 
 
-def test_indent_nested_2():
+def test_indent_nested_2() raises:
     """2-space indent affects nested levels."""
     var pp = PrettyPrinter(indent=2)
     var n = Level1(Level2(Level3(1)))
@@ -107,7 +107,7 @@ def test_indent_nested_2():
     assert_true("      value:" in out)  # 6 spaces
 
 
-def test_indent_nested_4():
+def test_indent_nested_4() raises:
     """4-space indent affects nested levels."""
     var pp = PrettyPrinter(indent=4)
     var n = Level1(Level2(Level3(1)))
@@ -121,14 +121,14 @@ def test_indent_nested_4():
 # max_depth tests
 # =============================================================================
 
-def test_max_depth_0():
+def test_max_depth_0() raises:
     """Depth 0 immediately returns ellipsis."""
     var pp = PrettyPrinter(max_depth=0)
     var s = SingleField(1)
     assert_equal(pformat(s, pp), "...")
 
 
-def test_max_depth_1():
+def test_max_depth_1() raises:
     """Depth 1 shows struct but nested as ellipsis."""
     var pp = PrettyPrinter(max_depth=1)
     var n = Level1(Level2(Level3(1)))
@@ -136,7 +136,7 @@ def test_max_depth_1():
     assert_true("inner: ..." in out)
 
 
-def test_max_depth_2():
+def test_max_depth_2() raises:
     """Depth 2 shows two levels."""
     var pp = PrettyPrinter(max_depth=2)
     var n = Level1(Level2(Level3(1)))
@@ -147,7 +147,7 @@ def test_max_depth_2():
     assert_true("inner:" in out)
 
 
-def test_max_depth_3():
+def test_max_depth_3() raises:
     """Depth 3 shows all three levels."""
     var pp = PrettyPrinter(max_depth=3)
     var n = Level1(Level2(Level3(1)))
@@ -155,7 +155,7 @@ def test_max_depth_3():
     assert_true("value: 1" in out)
 
 
-def test_max_depth_scalar_unaffected():
+def test_max_depth_scalar_unaffected() raises:
     """Scalars not affected by depth limit."""
     var pp = PrettyPrinter(max_depth=1)
     var s = SingleField(42)
@@ -163,7 +163,7 @@ def test_max_depth_scalar_unaffected():
     assert_true("value: 42" in out)
 
 
-def test_max_depth_deep_nesting():
+def test_max_depth_deep_nesting() raises:
     """4 levels deep with depth limit 2."""
     var pp = PrettyPrinter(max_depth=2)
     var d = DeepNest1(DeepNest2(DeepNest3(DeepNest4(99))))
@@ -176,7 +176,7 @@ def test_max_depth_deep_nesting():
     assert_true("..." in out)
 
 
-def test_max_depth_high_value():
+def test_max_depth_high_value() raises:
     """High depth limit shows everything."""
     var pp = PrettyPrinter(max_depth=100)
     var d = DeepNest1(DeepNest2(DeepNest3(DeepNest4(99))))
@@ -188,7 +188,7 @@ def test_max_depth_high_value():
 # max_items tests
 # =============================================================================
 
-def test_max_items_1():
+def test_max_items_1() raises:
     """Item limit 1 shows only first field."""
     var pp = PrettyPrinter(max_items=1)
     var a = Address("NYC", 10001)
@@ -198,7 +198,7 @@ def test_max_items_1():
     assert_false("zip:" in out)
 
 
-def test_max_items_2():
+def test_max_items_2() raises:
     """Item limit 2 on 2-field struct shows all."""
     var pp = PrettyPrinter(max_items=2)
     var a = Address("NYC", 10001)
@@ -208,7 +208,7 @@ def test_max_items_2():
     assert_false("..." in out)
 
 
-def test_max_items_3_of_8():
+def test_max_items_3_of_8() raises:
     """Item limit 3 on 8-field struct."""
     var pp = PrettyPrinter(max_items=3)
     var m = ManyFields(1, 2, 3, 4, 5, 6, 7, 8)
@@ -221,7 +221,7 @@ def test_max_items_3_of_8():
     assert_false("h: 8" in out)
 
 
-def test_max_items_5_of_8():
+def test_max_items_5_of_8() raises:
     """Item limit 5 on 8-field struct."""
     var pp = PrettyPrinter(max_items=5)
     var m = ManyFields(1, 2, 3, 4, 5, 6, 7, 8)
@@ -232,7 +232,7 @@ def test_max_items_5_of_8():
     assert_false("f: 6" in out)
 
 
-def test_max_items_exact():
+def test_max_items_exact() raises:
     """Item limit equal to field count."""
     var pp = PrettyPrinter(max_items=8)
     var m = ManyFields(1, 2, 3, 4, 5, 6, 7, 8)
@@ -242,7 +242,7 @@ def test_max_items_exact():
     assert_false("..." in out)
 
 
-def test_max_items_greater_than_fields():
+def test_max_items_greater_than_fields() raises:
     """Item limit greater than field count."""
     var pp = PrettyPrinter(max_items=100)
     var m = ManyFields(1, 2, 3, 4, 5, 6, 7, 8)
@@ -252,7 +252,7 @@ def test_max_items_greater_than_fields():
     assert_false("..." in out)
 
 
-def test_max_items_0():
+def test_max_items_0() raises:
     """Item limit 0 shows no fields."""
     var pp = PrettyPrinter(max_items=0)
     var a = Address("NYC", 10001)
@@ -265,7 +265,7 @@ def test_max_items_0():
 # show_types tests
 # =============================================================================
 
-def test_show_types_false():
+def test_show_types_false() raises:
     """Verify show_types=False hides types."""
     var pp = PrettyPrinter(show_types=False)
     var s = SingleField(42)
@@ -273,7 +273,7 @@ def test_show_types_false():
     assert_false("<Int>" in out)
 
 
-def test_show_types_true():
+def test_show_types_true() raises:
     """Verify show_types=True shows types."""
     var pp = PrettyPrinter(show_types=True)
     var s = SingleField(42)
@@ -281,7 +281,7 @@ def test_show_types_true():
     assert_true("<Int>" in out)
 
 
-def test_show_types_multiple_fields():
+def test_show_types_multiple_fields() raises:
     """Verify show_types on multiple fields."""
     var pp = PrettyPrinter(show_types=True)
     var a = Address("NYC", 10001)
@@ -290,7 +290,7 @@ def test_show_types_multiple_fields():
     assert_true("<Int>" in out)
 
 
-def test_show_types_nested():
+def test_show_types_nested() raises:
     """Verify show_types on nested structs."""
     var pp = PrettyPrinter(show_types=True)
     var n = Level1(Level2(Level3(1)))
@@ -304,7 +304,7 @@ def test_show_types_nested():
 # Combined options tests
 # =============================================================================
 
-def test_combined_indent_and_depth():
+def test_combined_indent_and_depth() raises:
     """Custom indent with depth limit."""
     var pp = PrettyPrinter(indent=4, max_depth=1)
     var n = Level1(Level2(Level3(1)))
@@ -312,7 +312,7 @@ def test_combined_indent_and_depth():
     assert_true("    inner: ..." in out)
 
 
-def test_combined_items_and_types():
+def test_combined_items_and_types() raises:
     """Item limit with show_types."""
     var pp = PrettyPrinter(max_items=1, show_types=True)
     var a = Address("NYC", 10001)
@@ -323,7 +323,7 @@ def test_combined_items_and_types():
     assert_false("zip:" in out)
 
 
-def test_combined_all_options():
+def test_combined_all_options() raises:
     """All options combined."""
     var pp = PrettyPrinter(
         indent=4,
@@ -341,14 +341,14 @@ def test_combined_all_options():
 # Copy/move semantics tests
 # =============================================================================
 
-def test_config_copyable():
+def test_config_copyable() raises:
     """PrettyPrinter is copyable."""
     var pp1 = PrettyPrinter(indent=4)
     var pp2 = pp1
     assert_equal(pp2.indent, 4)
 
 
-def test_config_modify_copy():
+def test_config_modify_copy() raises:
     """Modifying copy doesn't affect original."""
     var pp1 = PrettyPrinter(indent=4)
     var pp2 = pp1
@@ -361,7 +361,7 @@ def test_config_modify_copy():
 # Main
 # =============================================================================
 
-def main():
+def main() raises:
     print("=" * 60)
     print("test_config.mojo")
     print("=" * 60)
