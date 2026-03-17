@@ -1,5 +1,5 @@
 """Tests for scalar type formatting."""
-from testing import assert_equal, assert_true, assert_false, TestSuite
+from std.testing import assert_equal, assert_true, assert_false, TestSuite
 
 from pprint import PrettyPrinter, pformat
 

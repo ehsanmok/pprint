@@ -1,5 +1,5 @@
 """Tests for edge cases and special scenarios."""
-from testing import assert_equal, assert_true, assert_false, TestSuite
+from std.testing import assert_equal, assert_true, assert_false, TestSuite
 
 from pprint import PrettyPrinter, pprint, pformat
 from tests.fixtures import (
