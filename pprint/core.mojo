@@ -6,7 +6,7 @@ are detected by comparing type names at compile time to avoid recursing into
 MLIR primitive types.
 """
 
-from reflection import (
+from std.reflection import (
     struct_field_count,
     struct_field_names,
     struct_field_types,
@@ -176,7 +176,7 @@ def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String
     comptime tname = get_type_name[T]()
 
     # Check known scalar types at compile time
-    @parameter
+    comptime
     if tname == _STRING_NAME:
         var out = '"' + rebind[String](value) + '"'
         if pp.show_types:
@@ -235,7 +235,7 @@ def _format_struct[T: AnyType](
     var out = "{"
     var shown = 0
 
-    @parameter
+    comptime
     for idx in range(field_count):
         if shown >= pp.max_items:
             break
@@ -255,7 +255,7 @@ def _format_struct[T: AnyType](
         ref field = __struct_field_ref(idx, value)
 
         # Format based on known scalar types (compile-time checks)
-        @parameter
+        comptime
         if field_type_name == _STRING_NAME:
             out += '"' + rebind[String](field) + '"'
         elif field_type_name == _INT_NAME:
