@@ -44,7 +44,7 @@ channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 preview = ["pixi-build"]
 
 [dependencies]
-pprint = { git = "https://github.com/ehsanmok/pprint.git" }
+pprint = { git = "https://github.com/ehsanmok/pprint.git", branch = "main" }
 ```
 
 Then run:
