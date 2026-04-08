@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml/badge.svg)](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml)
 [![API Docs](https://img.shields.io/badge/docs-API-blue)](https://ehsanmok.github.io/pprint/pprint/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Reflection-driven pretty printer for Mojo structs.
 
