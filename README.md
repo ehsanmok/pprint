@@ -16,7 +16,7 @@ struct Person(Copyable, Movable):
     var name: String
     var age: Int
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     print(p)  # ERROR: 'Person' does not implement 'Writable'
 ```
@@ -26,7 +26,7 @@ With `pprint`, **no trait implementation is required** - it uses reflection to i
 ```mojo
 from pprint import pprint
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     pprint(p)  # Works! No Writable needed
 ```
@@ -71,7 +71,7 @@ struct Person(Copyable, Movable):
     var name: String
     var age: Int
 
-fn main():
+def main():
     var p = Person("Ada", 36)
     pprint(p)  # Prints to stdout
 ```
