@@ -292,7 +292,8 @@ def _format_type_name(name: StaticString) -> String:
 
     # Strip module prefix if present (e.g., "module.StructName" -> "StructName")
     if "." in type_str:
-        return String(type_str.split(".")[-1])
+        var parts = type_str.split(".")
+        return String(parts[len(parts) - 1])
 
     return type_str
 
