@@ -1,7 +1,7 @@
 # pprint
 
 [![CI](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml/badge.svg)](https://github.com/ehsanmok/pprint/actions/workflows/ci.yaml)
-[![API Docs](https://img.shields.io/badge/docs-API-blue)](https://ehsanmok.github.io/pprint/pprint/)
+[![Docs](https://github.com/ehsanmok/pprint/actions/workflows/docs.yaml/badge.svg)](https://ehsanmok.github.io/pprint/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Reflection-driven pretty printer for Mojo structs.
@@ -21,7 +21,7 @@ def main():
     print(p)  # ERROR: 'Person' does not implement 'Writable'
 ```
 
-With `pprint`, **no trait implementation is required** - it uses reflection to inspect and format any struct automatically:
+With `pprint`, **no trait implementation is required** — it uses reflection to inspect and format any struct automatically:
 
 ```mojo
 from pprint import pprint
@@ -30,36 +30,6 @@ def main():
     var p = Person("Ada", 36)
     pprint(p)  # Works! No Writable needed
 ```
-
-## Requirements
-
-[pixi](https://pixi.sh) package manager
-
-## Installation
-
-Add pprint to your project's `pixi.toml`:
-
-```toml
-[workspace]
-channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
-preview = ["pixi-build"]
-
-[dependencies]
-pprint = { git = "https://github.com/ehsanmok/pprint.git", branch = "main" }
-```
-
-Then run:
-
-```bash
-pixi install
-```
-
-## Features
-
-- **Zero boilerplate**: Works on any struct without implementing traits
-- **Configurable**: Custom indentation, depth limits, item limits
-- **Type annotations**: Optional `show_types` mode
-- **JSON-style output**: Booleans as `true`/`false`, strings quoted
 
 ## Quick Start
 
@@ -85,38 +55,35 @@ Output:
 }
 ```
 
-## API
+## Installation
 
-```mojo
-# Print to stdout (like Python's pprint.pprint)
-pprint(value)
-pprint(value, pp)
+Add pprint to your project's `pixi.toml`:
 
-# Return formatted string (like Python's pprint.pformat)
-var s = pformat(value)
-var s = pformat(value, pp)
+```toml
+[workspace]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+preview = ["pixi-build"]
+
+[dependencies]
+pprint = { git = "https://github.com/ehsanmok/pprint.git", branch = "main" }
 ```
 
-## PrettyPrinter Options
+Then run:
 
-```mojo
-var pp = PrettyPrinter(
-    indent=2,         # Spaces per indent level (default: 2)
-    max_depth=6,      # Max nesting depth before "..." (default: 6)
-    max_items=64,     # Max fields shown before "..." (default: 64)
-    show_types=False, # Show type annotations (default: False)
-    compact=False,    # Reserved for future use
-)
+```bash
+pixi install
 ```
 
-With `show_types=True`:
+Requires [pixi](https://pixi.sh) (pulls Mojo nightly automatically).
 
-```
-{
-  name: "Ada" <String>,
-  age: 36 <Int>
-}
-```
+## Features
+
+- **Zero boilerplate**: Works on any struct without implementing traits
+- **Configurable**: Custom indentation, depth limits, item limits
+- **Type annotations**: Optional `show_types` mode
+- **JSON-style output**: Booleans as `true`/`false`, strings quoted
+
+Full API reference: [ehsanmok.github.io/pprint](https://ehsanmok.github.io/pprint/)
 
 ## Development
 
