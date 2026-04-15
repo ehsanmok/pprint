@@ -21,7 +21,7 @@ def main():
     print(p)  # ERROR: 'Person' does not implement 'Writable'
 ```
 
-With `pprint`, **no trait implementation is required** — it uses reflection to inspect and format any struct automatically:
+With `pprint`, no trait implementation is required. It uses reflection to inspect and format any struct automatically:
 
 ```mojo
 from pprint import pprint

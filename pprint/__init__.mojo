@@ -1,9 +1,9 @@
 """Reflection-driven pretty printer for Mojo structs.
 
-- **Zero boilerplate** — Works on any struct without implementing traits
-- **Configurable** — Custom indentation, depth limits, item limits
-- **Type annotations** — Optional `show_types` mode
-- **JSON-style output** — Booleans as `true`/`false`, strings quoted
+- **Zero boilerplate:** works on any struct without implementing traits
+- **Configurable:** custom indentation, depth limits, item limits
+- **Type annotations:** optional `show_types` mode
+- **JSON-style output:** booleans as `true`/`false`, strings quoted
 
 ## Why pprint?
 
