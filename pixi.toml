@@ -15,7 +15,7 @@ backend = { name = "pixi-build-rattler-build", version = "*" }
 
 [dependencies]
 pprint = { path = "." }
-mojo = "<1.0"
+mojo = "==0.26.3.0.dev2026042005"
 
 [feature.dev.dependencies]
 pre-commit = ">=4.2.0,<5"
