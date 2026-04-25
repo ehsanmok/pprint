@@ -65,7 +65,7 @@ channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 preview = ["pixi-build"]
 
 [dependencies]
-pprint = { git = "https://github.com/ehsanmok/pprint.git", tag = "v0.1.0" }
+pprint = { git = "https://github.com/ehsanmok/pprint.git", tag = "v0.1.1" }
 ```
 
 Then run:
