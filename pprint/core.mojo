@@ -62,12 +62,12 @@ struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
         self.compact = compact
 
 
-comptime _INT_NAME = reflect[Int]().name()
-comptime _BOOL_NAME = reflect[Bool]().name()
-comptime _STRING_NAME = reflect[String]().name()
-comptime _FLOAT64_NAME = reflect[Float64]().name()
-comptime _FLOAT32_NAME = reflect[Float32]().name()
-comptime _FLOAT16_NAME = reflect[Float16]().name()
+comptime _INT_NAME = reflect[Int].name()
+comptime _BOOL_NAME = reflect[Bool].name()
+comptime _STRING_NAME = reflect[String].name()
+comptime _FLOAT64_NAME = reflect[Float64].name()
+comptime _FLOAT32_NAME = reflect[Float32].name()
+comptime _FLOAT16_NAME = reflect[Float16].name()
 
 
 def pprint[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()):
@@ -149,7 +149,7 @@ def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String
     - Structs: Recursive formatting with braces and indentation
     - Unknown types: Displayed as "<unknown>"
     """
-    comptime tname = reflect[T]().name()
+    comptime tname = reflect[T].name()
 
     # Check known scalar types at compile time
     comptime
@@ -184,7 +184,7 @@ def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String
         if pp.show_types:
             out += " <" + String(tname) + ">"
         return out
-    elif reflect[T]().is_struct():
+    elif reflect[T].is_struct():
         return _format_struct[T](value, pp, 0)
     else:
         # Unknown type - cannot format without Writable trait
@@ -201,9 +201,9 @@ def _format_struct[T: AnyType](
     if depth >= pp.max_depth:
         return "..."
 
-    comptime field_count = reflect[T]().field_count()
-    comptime field_names = reflect[T]().field_names()
-    comptime field_types = reflect[T]().field_types()
+    comptime field_count = reflect[T].field_count()
+    comptime field_names = reflect[T].field_names()
+    comptime field_types = reflect[T].field_types()
 
     if field_count == 0:
         return "{}"
@@ -224,10 +224,10 @@ def _format_struct[T: AnyType](
 
         comptime field_name = field_names[idx]
         comptime field_type = field_types[idx]
-        comptime field_type_name = reflect[field_type]().name()
+        comptime field_type_name = reflect[field_type].name()
         out += String(field_name) + ": "
 
-        ref field = reflect[T]().field_ref[idx](value)
+        ref field = reflect[T].field_ref[idx](value)
 
         # Format based on known scalar types (compile-time checks)
         comptime
@@ -244,7 +244,7 @@ def _format_struct[T: AnyType](
             out += String(rebind[Float32](field))
         elif field_type_name == _FLOAT16_NAME or "SIMD[DType.float16" in field_type_name:
             out += String(rebind[Float16](field))
-        elif reflect[field_type]().is_struct():
+        elif reflect[field_type].is_struct():
             # Nested struct: recurse
             out += _format_struct[field_type](
                 rebind[field_type](field), pp, depth + 1
