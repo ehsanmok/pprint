@@ -19,6 +19,7 @@ from tests.fixtures import (
 # Empty struct tests
 # =============================================================================
 
+
 def test_empty_struct() raises:
     """Empty struct prints as {}."""
     assert_equal(pformat(Empty()), "{}")
@@ -33,6 +34,7 @@ def test_empty_struct_with_types() raises:
 # =============================================================================
 # Single field struct tests
 # =============================================================================
+
 
 def test_single_field() raises:
     """Single field struct."""
@@ -59,6 +61,7 @@ def test_single_field_negative() raises:
 # Two field struct tests
 # =============================================================================
 
+
 def test_two_fields() raises:
     """Two field struct."""
     var s = TwoFields(1, 2)
@@ -71,7 +74,7 @@ def test_two_fields() raises:
 def test_address() raises:
     """Address struct with string and int."""
     var a = Address("Paris", 75001)
-    var expected = "{\n  city: \"Paris\",\n  zip: 75001\n}"
+    var expected = '{\n  city: "Paris",\n  zip: 75001\n}'
     assert_equal(pformat(a), expected)
 
 
@@ -86,6 +89,7 @@ def test_address_empty_city() raises:
 # =============================================================================
 # Multi-field struct tests
 # =============================================================================
+
 
 def test_person() raises:
     """Person struct with various field types."""
@@ -132,6 +136,7 @@ def test_all_types() raises:
 # Nested struct tests
 # =============================================================================
 
+
 def test_nested_basic() raises:
     """Basic nested struct."""
     var n = Level1(Level2(Level3(42)))
@@ -172,6 +177,7 @@ def test_nested_braces() raises:
 # Struct with show_types
 # =============================================================================
 
+
 def test_show_types_simple() raises:
     """Type hints on simple struct."""
     var pp = PrettyPrinter(show_types=True)
@@ -204,6 +210,7 @@ def test_show_types_all_types() raises:
 # =============================================================================
 # Main
 # =============================================================================
+
 
 def main() raises:
     print("=" * 60)

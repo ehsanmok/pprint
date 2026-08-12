@@ -8,6 +8,7 @@ from pprint import PrettyPrinter, pformat
 # Integer tests
 # =============================================================================
 
+
 def test_int_positive() raises:
     """Positive integer."""
     assert_equal(pformat(42), "42")
@@ -42,6 +43,7 @@ def test_int_max() raises:
 # Boolean tests
 # =============================================================================
 
+
 def test_bool_true() raises:
     """Boolean true is lowercase."""
     assert_equal(pformat(True), "true")
@@ -55,6 +57,7 @@ def test_bool_false() raises:
 # =============================================================================
 # Float tests
 # =============================================================================
+
 
 def test_float_positive() raises:
     """Positive float."""
@@ -89,6 +92,7 @@ def test_float_large() raises:
 # =============================================================================
 # String tests
 # =============================================================================
+
 
 def test_string_simple() raises:
     """Simple string is quoted."""
@@ -142,6 +146,7 @@ def test_string_tab() raises:
 # Scalars with show_types
 # =============================================================================
 
+
 def test_int_with_type() raises:
     """Int with type annotation."""
     var pp = PrettyPrinter(show_types=True)
@@ -178,6 +183,7 @@ def test_float_with_type() raises:
 # =============================================================================
 # Main
 # =============================================================================
+
 
 def main() raises:
     print("=" * 60)

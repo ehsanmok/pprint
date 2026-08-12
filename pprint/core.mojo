@@ -156,33 +156,33 @@ def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String
     if tname == _STRING_NAME:
         var out = '"' + rebind[String](value) + '"'
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif tname == _INT_NAME:
         var out = String(rebind[Int](value))
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif tname == _BOOL_NAME:
         # Format bool as lowercase true/false (JSON-style)
         var out = String("true") if rebind[Bool](value) else String("false")
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif tname == _FLOAT64_NAME or "SIMD[DType.float64" in tname:
         var out = String(rebind[Float64](value))
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif tname == _FLOAT32_NAME or "SIMD[DType.float32" in tname:
         var out = String(rebind[Float32](value))
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif tname == _FLOAT16_NAME or "SIMD[DType.float16" in tname:
         var out = String(rebind[Float16](value))
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
     elif reflect[T].is_struct():
         return _format_struct[T](value, pp, 0)
@@ -190,7 +190,7 @@ def pformat[T: AnyType](value: T, pp: PrettyPrinter = PrettyPrinter()) -> String
         # Unknown type - cannot format without Writable trait
         var out = String("<unknown>")
         if pp.show_types:
-            out += " <" + String(tname) + ">"
+            out += " <" + _format_type_name(tname) + ">"
         return out
 
 
@@ -278,6 +278,8 @@ def _format_type_name(name: StaticString) -> String:
         return "Float32"
     if "SIMD[DType.float16" in type_str:
         return "Float16"
+    if "SIMD[DType.int" in type_str:
+        return "Int"
 
     # Strip module prefix if present (e.g., "module.StructName" -> "StructName")
     if "." in type_str:

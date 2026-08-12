@@ -21,6 +21,7 @@ from tests.fixtures import (
 # Default values tests
 # =============================================================================
 
+
 def test_default_indent() raises:
     """Default indent is 2."""
     var pp = PrettyPrinter()
@@ -54,6 +55,7 @@ def test_default_compact() raises:
 # =============================================================================
 # Custom indent tests
 # =============================================================================
+
 
 def test_indent_0() raises:
     """Zero indent - no indentation."""
@@ -102,7 +104,7 @@ def test_indent_nested_2() raises:
     var pp = PrettyPrinter(indent=2)
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n, pp)
-    assert_true("  inner:" in out)   # 2 spaces
+    assert_true("  inner:" in out)  # 2 spaces
     assert_true("    inner:" in out)  # 4 spaces
     assert_true("      value:" in out)  # 6 spaces
 
@@ -112,7 +114,7 @@ def test_indent_nested_4() raises:
     var pp = PrettyPrinter(indent=4)
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n, pp)
-    assert_true("    inner:" in out)      # 4 spaces
+    assert_true("    inner:" in out)  # 4 spaces
     assert_true("        inner:" in out)  # 8 spaces
     assert_true("            value:" in out)  # 12 spaces
 
@@ -120,6 +122,7 @@ def test_indent_nested_4() raises:
 # =============================================================================
 # max_depth tests
 # =============================================================================
+
 
 def test_max_depth_0() raises:
     """Depth 0 immediately returns ellipsis."""
@@ -187,6 +190,7 @@ def test_max_depth_high_value() raises:
 # =============================================================================
 # max_items tests
 # =============================================================================
+
 
 def test_max_items_1() raises:
     """Item limit 1 shows only first field."""
@@ -265,6 +269,7 @@ def test_max_items_0() raises:
 # show_types tests
 # =============================================================================
 
+
 def test_show_types_false() raises:
     """Verify show_types=False hides types."""
     var pp = PrettyPrinter(show_types=False)
@@ -304,6 +309,7 @@ def test_show_types_nested() raises:
 # Combined options tests
 # =============================================================================
 
+
 def test_combined_indent_and_depth() raises:
     """Custom indent with depth limit."""
     var pp = PrettyPrinter(indent=4, max_depth=1)
@@ -334,12 +340,13 @@ def test_combined_all_options() raises:
     var n = Level1(Level2(Level3(1)))
     var out = pformat(n, pp)
     assert_true("    inner:" in out)  # 4-space indent
-    assert_true("<Level2>" in out)     # show_types
+    assert_true("<Level2>" in out)  # show_types
 
 
 # =============================================================================
 # Copy/move semantics tests
 # =============================================================================
+
 
 def test_config_copyable() raises:
     """PrettyPrinter is copyable."""
@@ -360,6 +367,7 @@ def test_config_modify_copy() raises:
 # =============================================================================
 # Main
 # =============================================================================
+
 
 def main() raises:
     print("=" * 60)
