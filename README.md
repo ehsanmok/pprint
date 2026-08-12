@@ -61,11 +61,11 @@ Add pprint to your project's `pixi.toml`:
 
 ```toml
 [workspace]
-channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+channels = ["https://conda.modular.com/max", "conda-forge"]
 preview = ["pixi-build"]
 
 [dependencies]
-pprint = { git = "https://github.com/ehsanmok/pprint.git", tag = "v0.1.1" }
+pprint = { git = "https://github.com/ehsanmok/pprint.git", tag = "v0.2.0" }
 ```
 
 Then run:
@@ -74,7 +74,7 @@ Then run:
 pixi install
 ```
 
-Requires [pixi](https://pixi.sh) (pulls Mojo nightly automatically).
+Requires [pixi](https://pixi.sh) (pulls the pinned stable Mojo release automatically).
 
 For the latest development version:
 
