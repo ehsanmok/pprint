@@ -11,7 +11,7 @@ Mojo's built-in `print()` requires types to implement the `Writable` trait:
 
 ```mojo
 @fieldwise_init
-struct Person(Copyable, Movable):
+struct Person(Copyable):
     var name: String
     var age: Int
 
@@ -60,7 +60,7 @@ pixi install
 from pprint import pprint, PrettyPrinter
 
 @fieldwise_init
-struct Person(Copyable, Movable):
+struct Person(Copyable):
     var name: String
     var age: Int
 
@@ -171,12 +171,12 @@ Nested structs are formatted recursively with proper indentation:
 from pprint import pprint
 
 @fieldwise_init
-struct Address(Copyable, Movable):
+struct Address(Copyable):
     var city: String
     var zip: Int
 
 @fieldwise_init
-struct Person(Copyable, Movable):
+struct Person(Copyable):
     var name: String
     var age: Int
     var active: Bool

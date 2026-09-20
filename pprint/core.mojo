@@ -6,7 +6,7 @@ are detected by comparing type names at compile time to avoid recursing into
 MLIR primitive types.
 """
 
-struct PrettyPrinter(Copyable, Movable, ImplicitlyCopyable):
+struct PrettyPrinter(ImplicitlyCopyable):
     """Configuration for pretty printing, similar to Python's pprint.PrettyPrinter.
 
     This struct holds formatting options that control how values are displayed.

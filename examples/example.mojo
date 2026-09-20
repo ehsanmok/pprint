@@ -2,13 +2,13 @@ from pprint import PrettyPrinter, pprint, pformat
 
 
 @fieldwise_init
-struct Address(Copyable, Movable):
+struct Address(Copyable):
     var city: String
     var zip: Int
 
 
 @fieldwise_init
-struct Person(Copyable, Movable):
+struct Person(Copyable):
     var name: String
     var age: Int
     var active: Bool
